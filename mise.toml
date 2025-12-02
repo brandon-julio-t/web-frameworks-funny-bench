@@ -1,0 +1,5 @@
+[tools]
+bun = "latest"
+dotnet-core = "latest"
+go = "latest"
+rust = "latest"
