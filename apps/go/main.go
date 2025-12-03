@@ -20,7 +20,7 @@ type ErrorResponse struct {
 }
 
 func main() {
-	router := gin.Default()
+	router := gin.New()
 
 	router.POST("/:id", func(c *gin.Context) {
 		var req Request
