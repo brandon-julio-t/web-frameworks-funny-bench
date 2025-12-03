@@ -57,5 +57,13 @@ module.exports = {
         NODE_ENV: "production",
       },
     },
+    {
+      name: "bun",
+      script: "./bin/bun/server",
+      env: {
+        PORT: 3007,
+        NODE_ENV: "production",
+      },
+    },
   ],
 };

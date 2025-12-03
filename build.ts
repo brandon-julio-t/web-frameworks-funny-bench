@@ -1,6 +1,6 @@
 import Bun, { $ } from "bun";
 
-const apps = ["elysia", "hono", "express", "fastify"];
+const apps = ["elysia", "hono", "express", "fastify", "bun"];
 
 await $`rm -rf bin`;
 
