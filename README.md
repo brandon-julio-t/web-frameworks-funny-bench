@@ -33,12 +33,14 @@ Each framework runs on a dedicated port and is tested individually to ensure fai
 
 ## Test Environment
 
-- **CPU**: Apple M1 Pro
-- **Cores**: 8 physical cores
-- **Memory**: 16 GB
-- **OS**: macOS 15.7.2 (Build 24G325)
+- **Platform**: Docker (Linux)
+- **OS**: Ubuntu 24.04
+- **Test Duration**: 10 seconds per framework
+- **All frameworks achieved 100% success rate**
 
 ## Results
+
+### 4 CPU / 2GB Memory
 
 | Framework    | Requests/sec | Average Latency | 50th percentile | 99th percentile |
 | ------------ | ------------ | --------------- | --------------- | --------------- |
@@ -51,6 +53,19 @@ Each framework runs on a dedicated port and is tested individually to ensure fai
 | Express      | 32,968       | 1.51 ms         | 0.28 ms         | 47.71 ms        |
 | ASP.NET Core | 32,644       | 1.53 ms         | 0.80 ms         | 15.28 ms        |
 
+### 8 CPU / 4GB Memory
+
+| Framework    | Requests/sec | Average Latency | 50th percentile | 99th percentile |
+| ------------ | ------------ | --------------- | --------------- | --------------- |
+| Bun          | 236,588      | 0.21 ms         | 0.14 ms         | 1.33 ms         |
+| Elysia       | 200,108      | 0.25 ms         | 0.15 ms         | 1.63 ms         |
+| Rust         | 161,061      | 0.31 ms         | 0.25 ms         | 1.12 ms         |
+| Hono         | 120,714      | 0.41 ms         | 0.15 ms         | 4.42 ms         |
+| Fastify      | 119,708      | 0.42 ms         | 0.16 ms         | 4.51 ms         |
+| Express      | 103,357      | 0.48 ms         | 0.20 ms         | 3.48 ms         |
+| Go           | 69,818       | 0.71 ms         | 0.25 ms         | 7.40 ms         |
+| ASP.NET Core | 64,500       | 0.77 ms         | 0.48 ms         | 4.53 ms         |
+
 _Benchmark run for 10 seconds with maximum concurrency. All frameworks achieved 100% success rate._
 
 ## Docker Benchmark
@@ -60,7 +75,23 @@ _Benchmark run for 10 seconds with maximum concurrency. All frameworks achieved 
 For consistent results across different environments, you can run the benchmark in a Docker container using `./bench-in-docker.sh`. This script:
 
 - Builds a Docker image with all necessary dependencies
-- Runs the benchmark in a container with resource limits (4 CPU, 2GB memory)
-- Copies results back to the `./results/` directory
+- Runs the benchmark in a container with resource limits
+- Copies results back to a directory named based on the CPU and memory configuration (e.g., `./results-8cpu-4g/`)
+
+### Configuring CPU and Memory Limits
+
+To change the Docker container's CPU and memory limits, edit the configuration variables at the top of `bench-in-docker.sh`:
+
+```bash
+CPU_LIMIT="8"        # Number of CPUs (e.g., "4", "8")
+MEMORY_LIMIT="4g"    # Memory limit (e.g., "2g", "4g", "8g")
+```
+
+**Examples:**
+
+- For 4 CPUs and 2GB memory: `CPU_LIMIT="4"` and `MEMORY_LIMIT="2g"` → results saved to `./results-4cpu-2g/`
+- For 8 CPUs and 4GB memory: `CPU_LIMIT="8"` and `MEMORY_LIMIT="4g"` → results saved to `./results-8cpu-4g/`
+
+The results directory name is automatically generated based on your configuration, making it easy to compare benchmarks across different resource allocations.
 
 **Important Note**: The Docker benchmark runs on Linux, which enables the `reusePort` option for optimal performance. On Windows and macOS, the `reusePort` option is ignored due to operating system limitations with `SO_REUSEPORT`. This means benchmarks run directly on macOS/Windows may show different performance characteristics compared to the Docker (Linux) environment.

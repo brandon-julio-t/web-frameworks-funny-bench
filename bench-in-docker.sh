@@ -16,7 +16,7 @@
 #   1. Create a Dockerfile with all necessary dependencies
 #   2. Build a Docker image with the benchmark environment
 #   3. Run the benchmark in a container with resource limits
-#   4. Copy results back to ./results/ directory
+#   4. Copy results back to ./results-{cpu}cpu-{mem}g/ directory
 #   5. Display a summary of the results
 
 set -euo pipefail
@@ -30,9 +30,14 @@ NC='\033[0m' # No Color
 # Configuration
 IMAGE_NAME="bench-frameworks"
 CONTAINER_NAME="bench-runner"
-CPU_LIMIT="4"
-MEMORY_LIMIT="2g"
-RESULTS_DIR="./results"
+CPU_LIMIT="8"
+MEMORY_LIMIT="4g"
+
+# Extract memory value (remove unit suffix like 'g', 'm', etc.)
+MEMORY_VALUE=$(echo "${MEMORY_LIMIT}" | sed 's/[^0-9]//g')
+
+# Build results directory name based on CPU and memory config
+RESULTS_DIR="./results-${CPU_LIMIT}cpu-${MEMORY_VALUE}g"
 
 # Check if Docker is available
 if ! command -v docker &> /dev/null; then
