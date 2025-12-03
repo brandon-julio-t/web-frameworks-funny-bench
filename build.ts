@@ -16,7 +16,7 @@ await Promise.all([
   }),
 
   (async () => {
-    await $`cd apps/aspnet-core && dotnet build -c Release -o ../../bin/aspnet-core`;
+    await $`cd apps/aspnet-core && dotnet restore && dotnet publish -c Release -o ../../bin/aspnet-core`;
   })(),
 
   (async () => {

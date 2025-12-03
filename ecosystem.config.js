@@ -39,6 +39,12 @@ module.exports = {
       env: {
         PORT: 3004,
         NODE_ENV: "production",
+        ASPNETCORE_ENVIRONMENT: "Production",
+        DOTNET_gcServer: "true",
+        DOTNET_TieredCompilation: "1",
+        DOTNET_ReadyToRun: "0",
+        DOTNET_EnableWriteXorExecute: "0",
+        DOTNET_gcConcurrent: "true",
       },
     },
     {
