@@ -13,7 +13,11 @@ This benchmark compares the performance of various web frameworks using the foll
 
 - **Load Testing Tool**: [oha](https://github.com/hatoo/oha) - a modern HTTP load testing tool
 - **Test Duration**: 10 seconds per framework
-- **Request Type**: POST requests with JSON payload (`{"name": "John Doe"}`) - designed to test JSON request deserialization, request validation, and JSON response serialization
+- **Request Type**: POST requests to `/:id?signature=...` with JSON payload (`{"name": "John Doe"}`) - designed to test:
+  - Request body JSON serde and validation
+  - URL params (path parameters)
+  - Search/query params
+  - Response JSON serde
 - **Concurrency**: Maximum concurrency (default oha settings)
 - **Process Management**: Each framework is run using PM2 to ensure consistent process management
 - **JavaScript/TypeScript/Bun Frameworks**:
