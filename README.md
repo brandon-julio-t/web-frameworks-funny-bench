@@ -19,7 +19,6 @@ This benchmark compares the performance of various web frameworks using the foll
   - Search/query params
   - Response JSON serde
 - **Concurrency**: Maximum concurrency (default oha settings)
-- **Process Management**: Each framework is run using PM2 to ensure consistent process management
 - **JavaScript/TypeScript/Bun Frameworks**:
   - Built using Bun's build system (`build.ts`) with compiled bytecode (`bytecode: true`, `compile: true`)
   - Served using Node.js cluster mode with workers equal to `os.availableParallelism()` for optimal CPU utilization
