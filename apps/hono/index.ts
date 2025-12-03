@@ -1,7 +1,6 @@
-import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
+import { Hono } from "hono";
 import { z } from "zod";
-import { serve } from "@hono/node-server";
 
 const app = new Hono();
 
@@ -21,7 +20,7 @@ app.post(
   }
 );
 
-serve({
-  ...app,
+Bun.serve({
   port: Number(process.env.PORT) || 3000,
+  fetch: app.fetch,
 });
