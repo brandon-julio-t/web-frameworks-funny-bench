@@ -22,15 +22,20 @@ type ErrorResponse struct {
 func main() {
 	router := gin.Default()
 
-	router.POST("/", func(c *gin.Context) {
+	router.POST("/:id", func(c *gin.Context) {
 		var req Request
 		if err := c.ShouldBindJSON(&req); err != nil {
 			c.JSON(http.StatusBadRequest, ErrorResponse{Error: "Invalid request body"})
 			return
 		}
 
-		c.JSON(http.StatusOK, Response{
-			Data: "Hello, \"" + req.Name + "\"!",
+		id := c.Param("id")
+		signature := c.Query("signature")
+
+		c.JSON(http.StatusOK, gin.H{
+			"id":        id,
+			"signature": signature,
+			"data":      "Hello, \"" + req.Name + "\"!",
 		})
 	})
 

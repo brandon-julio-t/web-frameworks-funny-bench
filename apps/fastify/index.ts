@@ -9,7 +9,7 @@ const bodySchema = z.object({
   name: z.string(),
 });
 
-fastify.post("/", async (request, reply) => {
+fastify.post("/:id", async (request, reply) => {
   const result = bodySchema.safeParse(request.body);
 
   if (!result.success) {
@@ -17,6 +17,8 @@ fastify.post("/", async (request, reply) => {
   }
 
   return {
+    id: (request.params as { id: string }).id,
+    signature: (request.query as { signature?: string }).signature,
     data: `Hello, "${result.data.name}"!`,
   };
 });

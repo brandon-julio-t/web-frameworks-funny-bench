@@ -7,7 +7,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
 
-app.MapPost("/", (Request request, IValidator<Request> validator) =>
+app.MapPost("/{id}", (string id, Request request, IValidator<Request> validator, HttpContext context) =>
 {
     var validationResult = validator.Validate(request);
     if (!validationResult.IsValid)
@@ -15,8 +15,12 @@ app.MapPost("/", (Request request, IValidator<Request> validator) =>
         return Results.BadRequest(new { error = "Invalid request body", errors = validationResult.Errors.Select(e => new { field = e.PropertyName, message = e.ErrorMessage }) });
     }
     
+    var signature = context.Request.Query["signature"].ToString();
+    
     return Results.Ok(new
     {
+        id = id,
+        signature = signature,
         data = $"Hello, \"{request.Name}\"!"
     });
 });

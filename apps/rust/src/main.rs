@@ -1,12 +1,11 @@
 use axum::{
-    extract::Json,
-    http::StatusCode,
+    extract::{Json, Path, Query},
     response::Json as ResponseJson,
     routing::post,
     Router,
 };
 use serde::{Deserialize, Serialize};
-use std::env;
+use std::{collections::HashMap, env};
 use validator::Validate;
 
 #[derive(Deserialize, Validate)]
@@ -16,24 +15,27 @@ struct Request {
 }
 
 #[derive(Serialize)]
-struct Response {
+struct ResponseWithParams {
+    id: String,
+    signature: Option<String>,
     data: String,
 }
 
-#[derive(Serialize)]
-struct ErrorResponse {
-    error: String,
-}
-
-async fn handle_post(Json(payload): Json<Request>) -> ResponseJson<Response> {
-    ResponseJson(Response {
+async fn handle_post(
+    Path(id): Path<String>,
+    Query(params): Query<HashMap<String, String>>,
+    Json(payload): Json<Request>,
+) -> ResponseJson<ResponseWithParams> {
+    ResponseJson(ResponseWithParams {
+        id,
+        signature: params.get("signature").cloned(),
         data: format!("Hello, \"{}\"!", payload.name),
     })
 }
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new().route("/", post(handle_post));
+    let app = Router::new().route("/:id", post(handle_post));
 
     let port = env::var("PORT").unwrap_or_else(|_| "3000".to_string());
     let addr = format!("0.0.0.0:{}", port);

@@ -4,9 +4,11 @@ const port = process.env.PORT || 3000;
 
 new Elysia()
   .post(
-    "/",
-    ({ body }) => {
+    "/:id",
+    ({ body, params, query }) => {
       return {
+        id: params.id,
+        signature: query.signature,
         data: `Hello, "${body.name}"!`,
       };
     },

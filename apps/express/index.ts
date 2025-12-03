@@ -8,7 +8,7 @@ const bodySchema = z.object({
   name: z.string(),
 });
 
-app.post("/", (req, res) => {
+app.post("/:id", (req, res) => {
   const result = bodySchema.safeParse(req.body);
 
   if (!result.success) {
@@ -16,6 +16,8 @@ app.post("/", (req, res) => {
   }
 
   res.json({
+    id: req.params.id,
+    signature: req.query.signature as string,
     data: `Hello, "${result.data.name}"!`,
   });
 });

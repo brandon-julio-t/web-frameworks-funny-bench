@@ -28,17 +28,27 @@ This benchmark compares the performance of various web frameworks using the foll
 
 Each framework runs on a dedicated port and is tested individually to ensure fair comparison. The benchmark is executed sequentially to avoid resource contention between frameworks.
 
+## Test Environment
+
+- **CPU**: Apple M1 Pro
+- **Cores**: 8 physical cores
+- **Memory**: 16 GB
+- **OS**: macOS 15.7.2 (Build 24G325)
+
 ## Results
 
 | Framework    | Requests/sec | Average Latency | 50th percentile | 99th percentile |
 | ------------ | ------------ | --------------- | --------------- | --------------- |
-| Rust         | 126,663      | 0.39 ms         | 0.36 ms         | 0.97 ms         |
-| Go           | 103,712      | 0.48 ms         | 0.36 ms         | 2.29 ms         |
-| Bun          | 78,268       | 0.64 ms         | 0.59 ms         | 1.26 ms         |
-| Elysia       | 71,702       | 0.70 ms         | 0.64 ms         | 1.37 ms         |
-| ASP.NET Core | 68,224       | 0.73 ms         | 0.66 ms         | 1.90 ms         |
-| Hono         | 59,426       | 0.84 ms         | 0.77 ms         | 1.67 ms         |
-| Fastify      | 46,444       | 1.08 ms         | 1.33 ms         | 2.29 ms         |
-| Express      | 36,478       | 1.37 ms         | 1.71 ms         | 3.03 ms         |
+| Rust         | 134,701      | 0.37 ms         | 0.35 ms         | 0.72 ms         |
+| Go           | 99,289       | 0.50 ms         | 0.36 ms         | 2.44 ms         |
+| Bun          | 73,557       | 0.68 ms         | 0.63 ms         | 1.33 ms         |
+| Elysia       | 68,556       | 0.73 ms         | 0.67 ms         | 1.44 ms         |
+| ASP.NET Core | 66,952       | 0.75 ms         | 0.65 ms         | 1.85 ms         |
+| Hono         | 56,054       | 0.89 ms         | 0.82 ms         | 1.78 ms         |
+| Fastify      | 44,107       | 1.13 ms         | 1.39 ms         | 2.41 ms         |
+| Express      | 34,392       | 1.45 ms         | 1.78 ms         | 3.15 ms         |
 
 _Benchmark run for 10 seconds with maximum concurrency. All frameworks achieved 100% success rate._
+
+> Elysia and ASP.NET Core rankings may change, sometimes Elysia win, sometimes ASP.NET Core wins.
+> But Elysia has better DX, so yes sir glory to Elysia.

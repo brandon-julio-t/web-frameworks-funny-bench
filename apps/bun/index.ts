@@ -6,32 +6,42 @@ const bodySchema = z.object({
 
 const port = Number(process.env.PORT) || 3000;
 
-Bun.serve({
+const server = Bun.serve({
   port,
-  async fetch(request) {
-    // Only handle POST requests to root path
-    if (request.method !== "POST" || new URL(request.url).pathname !== "/") {
-      return new Response("Not Found", { status: 404 });
-    }
+  routes: {
+    // Dynamic route for POST requests to /:id
+    "/:id": {
+      POST: async (req) => {
+        const id = req.params.id;
+        const url = new URL(req.url);
+        const signature = url.searchParams.get("signature");
 
-    try {
-      const body = await request.json();
-      const result = bodySchema.safeParse(body);
+        try {
+          const body = await req.json();
+          const result = bodySchema.safeParse(body);
 
-      if (!result.success) {
-        return Response.json(
-          { error: "Invalid request body" },
-          { status: 400 }
-        );
-      }
+          if (!result.success) {
+            return Response.json(
+              { error: "Invalid request body" },
+              { status: 400 }
+            );
+          }
 
-      return Response.json({
-        data: `Hello, "${result.data.name}"!`,
-      });
-    } catch (error) {
-      return Response.json({ error: "Invalid JSON" }, { status: 400 });
-    }
+          return Response.json({
+            id,
+            signature,
+            data: `Hello, "${result.data.name}"!`,
+          });
+        } catch (error) {
+          return Response.json({ error: "Invalid JSON" }, { status: 400 });
+        }
+      },
+    },
+  },
+  // Fallback for unmatched routes
+  fetch(req) {
+    return new Response("Not Found", { status: 404 });
   },
 });
 
-console.log(`Bun server running on port ${port}`);
+console.log(`Bun server running at ${server.url}`);

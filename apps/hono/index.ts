@@ -5,7 +5,7 @@ import { z } from "zod";
 const app = new Hono();
 
 app.post(
-  "/",
+  "/:id",
   zValidator(
     "json",
     z.object({
@@ -14,7 +14,11 @@ app.post(
   ),
   (c) => {
     const body = c.req.valid("json");
+    const id = c.req.param("id");
+    const signature = c.req.query("signature");
     return c.json({
+      id,
+      signature,
       data: `Hello, "${body.name}"!`,
     });
   }
