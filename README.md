@@ -5,7 +5,7 @@
 1. Make sure [mise](https://mise.jdx.dev) and [PM2](https://pm2.keymetrics.io) are installed
 2. `./bench.sh`
 3. Make Coffee
-4. Praise Rust, Go, Bun, and Elysia
+4. Praise Rust, Bun, and Elysia
 
 ## Methodology
 
