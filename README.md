@@ -2,10 +2,10 @@
 
 ## Getting Started
 
-1. Make sure [mise](https://mise.jdx.dev) and [pm2](https://pm2.keymetrics.io) are installed
+1. Make sure [mise](https://mise.jdx.dev) is installed
 2. `./bench.sh`
 3. Make Coffee
-4. Praise Rust, Go, and Elysia
+4. Praise Rust, Go, Bun, and Elysia
 
 ## Methodology
 
@@ -32,12 +32,13 @@ Each framework runs on a dedicated port and is tested individually to ensure fai
 
 | Framework    | Requests/sec | Average Latency | 50th percentile | 99th percentile |
 | ------------ | ------------ | --------------- | --------------- | --------------- |
-| Rust         | 133,282      | 0.37 ms         | 0.35 ms         | 0.78 ms         |
-| Go           | 101,561      | 0.49 ms         | 0.37 ms         | 2.43 ms         |
-| Elysia       | 70,652       | 0.71 ms         | 0.65 ms         | 1.39 ms         |
-| ASP.NET Core | 65,478       | 0.76 ms         | 0.64 ms         | 2.35 ms         |
-| Fastify      | 43,870       | 1.14 ms         | 1.34 ms         | 2.58 ms         |
-| Express      | 34,904       | 1.43 ms         | 1.74 ms         | 3.16 ms         |
-| Hono         | 24,673       | 2.03 ms         | 2.53 ms         | 4.67 ms         |
+| Rust         | 126,663      | 0.39 ms         | 0.36 ms         | 0.97 ms         |
+| Go           | 103,712      | 0.48 ms         | 0.36 ms         | 2.29 ms         |
+| Bun          | 78,268       | 0.64 ms         | 0.59 ms         | 1.26 ms         |
+| Elysia       | 71,702       | 0.70 ms         | 0.64 ms         | 1.37 ms         |
+| ASP.NET Core | 68,224       | 0.73 ms         | 0.66 ms         | 1.90 ms         |
+| Hono         | 59,426       | 0.84 ms         | 0.77 ms         | 1.67 ms         |
+| Fastify      | 46,444       | 1.08 ms         | 1.33 ms         | 2.29 ms         |
+| Express      | 36,478       | 1.37 ms         | 1.71 ms         | 3.03 ms         |
 
 _Benchmark run for 10 seconds with maximum concurrency. All frameworks achieved 100% success rate._
