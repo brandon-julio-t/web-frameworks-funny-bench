@@ -57,7 +57,7 @@ _Benchmark run for 10 seconds with maximum concurrency. All frameworks achieved 
 
 > Source: https://bun.com/docs/guides/http/cluster
 
-For consistent results across different environments, you can run the benchmark in a Docker container using `./bench-in-docker.sh` (or `./run-docker-bench.sh`). This script:
+For consistent results across different environments, you can run the benchmark in a Docker container using `./bench-in-docker.sh`. This script:
 
 - Builds a Docker image with all necessary dependencies
 - Runs the benchmark in a container with resource limits (4 CPU, 2GB memory)
