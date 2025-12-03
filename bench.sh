@@ -1,3 +1,9 @@
+mise use bun && \
+mise use dotnet-core && \
+mise use go && \
+mise use rust && \
+mise activate && \
+
 bun run build.ts && \
 
 pm2 start ecosystem.config.js --only elysia && \
@@ -40,6 +46,12 @@ pm2 start ecosystem.config.js --only rust && \
 sleep 3 && \
 oha -z 10s -m POST -T application/json -d '{"name": "John Doe"}' -o results/rust.txt http://localhost:3006 && \
 pm2 delete ecosystem.config.js --only rust && \
+sleep 3 && \
+
+pm2 start ecosystem.config.js --only bun && \
+sleep 3 && \
+oha -z 10s -m POST -T application/json -d '{"name": "John Doe"}' -o results/bun.txt http://localhost:3007 && \
+pm2 delete ecosystem.config.js --only bun && \
 sleep 3 && \
 
 echo 'Done'

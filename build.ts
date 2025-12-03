@@ -16,15 +16,15 @@ await Promise.all([
   }),
 
   (async () => {
-    await $`mise use dotnet-core && cd apps/aspnet-core && dotnet build -c Release -o ../../bin/aspnet-core`;
+    await $`cd apps/aspnet-core && dotnet build -c Release -o ../../bin/aspnet-core`;
   })(),
 
   (async () => {
-    await $`mise use go && cd apps/go && go build -o ../../bin/go main.go`;
+    await $`cd apps/go && go build -o ../../bin/go main.go`;
   })(),
 
   (async () => {
-    await $`mise use rust && cd apps/rust && cargo build --release`;
-    await $`mise use rust && cp apps/rust/target/release/rust-server bin/rust`;
+    await $`cd apps/rust && cargo build --release`;
+    await $`cp apps/rust/target/release/rust-server bin/rust`;
   })(),
 ]);
